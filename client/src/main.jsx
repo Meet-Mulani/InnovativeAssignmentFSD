@@ -6,10 +6,10 @@ import { AuthProvider } from './context/AuthContext';
 import './index.css'; // Tailwind imports
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <AuthProvider>
-        <App />
+  <React.StrictMode> {/*used for detecting potential issues in react app*/}
+    <BrowserRouter> {/* provides routing*/}
+      <AuthProvider> {/*provides authentication*/}
+        <App /> {/*App is the root component*/}
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

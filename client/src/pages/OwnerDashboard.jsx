@@ -10,7 +10,9 @@ export const OwnerDashboard = () => {
   const fetchBookings = async () => {
     try {
       const res = await axiosClient.get('/bookings');
-      setBookings(res.data.data);
+      const data = res.data.data || [];
+      const sorted = [...data].sort((a, b) => new Date(b.createdAt || b.startDate) - new Date(a.createdAt || a.startDate));
+      setBookings(sorted);
     } catch (error) {
       console.error('Failed to load bookings');
     } finally {

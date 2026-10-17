@@ -10,7 +10,7 @@ import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.use(protect);
+router.use(protect);//for every link given here we need token
 
 router.post('/', authorizeRoles('OWNER'), createBooking);
 router.get('/', getMyBookings);

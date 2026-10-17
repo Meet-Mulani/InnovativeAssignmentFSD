@@ -27,7 +27,7 @@ const TaskLogSchema = new mongoose.Schema({
     ref: 'User',
     default: null,
   },
-  details: {
+  details: { //not used
     portionGiven: { type: String, default: '' },
     medicationStatus: {
       type: String,

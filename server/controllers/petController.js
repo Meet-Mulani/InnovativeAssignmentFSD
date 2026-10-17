@@ -44,7 +44,7 @@ export const getPetById = async (req, res) => {
   }
 };
 
-// PUT /api/pets/:id
+// PUT /api/pets/id  :id
 export const updatePetDossier = async (req, res) => {
   try {
     const { dietCard, medicalCard, name, breed, age, weightKg } = req.body;
@@ -68,4 +68,4 @@ export const updatePetDossier = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
-
+

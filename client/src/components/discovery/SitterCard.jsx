@@ -1,10 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; //instead of refreshing in html tag 'a' this will navigate between pages
 import { ShieldCheck, Star, MapPin, Award } from 'lucide-react';
 
 export const SitterCard = ({ sitter }) => {
   const verifiedCerts = (sitter.certifications || []).filter(
-    (c) => c.verificationStatus === 'APPROVED'
+    (c) => c.verificationStatus === 'APPROVED' // not required as of now
   );
 
   return (
@@ -15,8 +15,8 @@ export const SitterCard = ({ sitter }) => {
             <div>
               <div className="flex items-center gap-1.5">
                 <h3 className="font-bold text-gray-900 text-base">{sitter.user?.name}</h3>
-                {sitter.isVerified && (
-                  <span title="Identity & Credentials Verified by PawsOut">
+                {sitter.isVerified && ( //if true rendering of the following will take place
+                  <span title="Identity & Credentials Verified by PawsOut"> {/* Functions like tooltip  */}
                     <ShieldCheck className="w-4 h-4 text-emerald-600" />
                   </span>
                 )}
@@ -38,7 +38,7 @@ export const SitterCard = ({ sitter }) => {
         <div className="flex items-center gap-3 mt-4 text-xs">
           <div className="flex items-center text-amber-500 font-semibold gap-1">
             <Star className="w-3.5 h-3.5 fill-current" />
-            <span>{(sitter.averageRating || 0).toFixed(1)}</span>
+            <span>{(sitter.averageRating || 0).toFixed(1)}</span> {/* for new user with no bookings */}
           </div>
           <span className="text-gray-300">•</span>
           <span className="text-gray-500">{sitter.completedStays || 0} stays completed</span>
@@ -55,7 +55,7 @@ export const SitterCard = ({ sitter }) => {
         <div className="mt-3 flex flex-wrap gap-1">
           {verifiedCerts.slice(0, 3).map((cert) => (
             <span
-              key={cert._id || cert.certType}
+              key={cert._id || cert.certType} //required by react for list and certType is fallback
               className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"
             >
               <Award className="w-3 h-3 text-emerald-600" />

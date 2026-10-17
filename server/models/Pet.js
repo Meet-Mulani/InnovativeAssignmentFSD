@@ -16,7 +16,7 @@ const VaccinationSchema = new mongoose.Schema({
 const PetSchema = new mongoose.Schema(
   {
     ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId, //not string but database id
       ref: 'User',
       required: true,
     },
@@ -51,17 +51,17 @@ const PetSchema = new mongoose.Schema(
       default: '',
     },
     dietCard: {
-      feedingSchedule: [{ type: String }], // e.g. ["08:00 AM", "07:30 PM"]
-      portionSize: { type: String, default: '' }, // e.g. "1.5 cups" or "150g"
-      foodSpecifications: { type: String, default: '' }, // Dry kibble, wet food, brand
+      feedingSchedule: [{ type: String }],
+      portionSize: { type: String, default: '' },
+      foodSpecifications: { type: String, default: '' },
       allergies: [{ type: String }],
       treatLimits: { type: String, default: '' },
     },
     medicalCard: {
-      prescriptions: [PrescriptionSchema],
-      vaccinations: [VaccinationSchema],
+      prescriptions: [PrescriptionSchema], //not using
+      vaccinations: [VaccinationSchema],// not using
       chronicConditions: [{ type: String }],
-      behavioralTriggers: [{ type: String }], // Thunderstorms, reactive to male dogs, etc.
+      behavioralTriggers: [{ type: String }], // Thunderstorms, etc.
       emergencyVet: {
         clinicName: { type: String, default: '' },
         vetName: { type: String, default: '' },

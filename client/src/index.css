@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+/* Time Picker spin buttons visibility */
+.time-spin-input::-webkit-inner-spin-button,
+.time-spin-input::-webkit-outer-spin-button {
+  opacity: 1 !important;
+  cursor: pointer;
+}

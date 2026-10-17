@@ -4,7 +4,7 @@ import { User } from '../models/User.js';
 // GET /api/sitters (Public Geospatial Search)
 export const getNearbySitters = async (req, res) => {
   try {
-    const {
+    const { // default structuring
       lng,
       lat,
       radius = 10,
@@ -13,7 +13,7 @@ export const getNearbySitters = async (req, res) => {
       startDate,
       endDate,
       sortBy = 'distance',
-      page = 1,
+      page = 1, //pagination
       limit = 12,
     } = req.query;
 
@@ -49,15 +49,15 @@ export const getNearbySitters = async (req, res) => {
         },
       };
     }
-
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/geonear/
     const pipeline = [
       {
-        $geoNear: {
-          near: {
+        $geoNear: { //mao engine og ongodb
+          near: {    //epicenter
             type: 'Point',
             coordinates: [parseFloat(lng), parseFloat(lat)],
           },
-          distanceField: 'distanceMeters',
+          distanceField: 'distanceMeters',// calculates distance
           maxDistance: radiusInMeters,
           spherical: true,
           query: matchFilters,
@@ -79,8 +79,8 @@ export const getNearbySitters = async (req, res) => {
     } else {
       pipeline.push({ $sort: { distanceMeters: 1 } });
     }
-
-    const skipCount = (parseInt(page) - 1) * parseInt(limit);
+    // https://www.mongodb.com/docs/manual/reference/operator/aggregation/skip/ and https://www.mongodb.com/docs/manual/reference/operator/aggregation/limit/
+    const skipCount = (parseInt(page) - 1) * parseInt(limit); //used for pagiantion but not required 
     pipeline.push({ $skip: skipCount }, { $limit: parseInt(limit) });
 
     pipeline.push(
@@ -95,7 +95,7 @@ export const getNearbySitters = async (req, res) => {
       { $unwind: '$user' },
       {
         $project: {
-          'user.password': 0,
+          'user.password': 0, //exclude password
         },
       }
     );

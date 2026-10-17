@@ -7,26 +7,26 @@ const CERT_OPTIONS = [
   'IPPC',
 ];
 
-export const FilterBar = ({ filters, setFilters, onDetectLocation, isLocating }) => {
-  const handleCertToggle = (cert) => {
+export const FilterBar = ({ filters, setFilters, onDetectLocation, isLocating }) => { //current state of filter, function, trigger geolocation,islocating boolean
+  const handleCertToggle = (cert) => { //cert string will contain certificate
     const active = filters.certifications.includes(cert);
     const updated = active
-      ? filters.certifications.filter((c) => c !== cert)
+      ? filters.certifications.filter((c) => c !== cert) //removes cert
       : [...filters.certifications, cert];
     setFilters({ ...filters, certifications: updated });
   };
 
   return (
     <div className="bg-white border border-gray-200 rounded-2xl p-5 shadow-sm space-y-5">
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-gray-100">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-gray-100"> {/*flex wrap for stacking them together*/}
         <div className="flex items-center gap-2">
           <SlidersHorizontal className="w-5 h-5 text-indigo-600" />
           <h2 className="font-semibold text-gray-900">Discovery Filters</h2>
         </div>
         <button
           type="button"
-          onClick={onDetectLocation}
-          disabled={isLocating}
+          onClick={onDetectLocation} //passed from parent
+          disabled={isLocating} // prevent sfrom clicking if islocating is true
           className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium rounded-lg bg-indigo-50 text-indigo-700 hover:bg-indigo-100 transition disabled:opacity-50"
         >
           <MapPin className="w-4 h-4 text-indigo-600" />
@@ -99,11 +99,10 @@ export const FilterBar = ({ filters, setFilters, onDetectLocation, isLocating })
                 key={cert}
                 type="button"
                 onClick={() => handleCertToggle(cert)}
-                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition border ${
-                  isSelected
-                    ? 'bg-indigo-600 text-white border-indigo-600'
-                    : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
-                }`}
+                className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-medium transition border ${isSelected
+                  ? 'bg-indigo-600 text-white border-indigo-600'
+                  : 'bg-gray-50 text-gray-600 border-gray-200 hover:bg-gray-100'
+                  }`}
               >
                 {isSelected && <CheckCircle className="w-3 h-3" />}
                 {cert}

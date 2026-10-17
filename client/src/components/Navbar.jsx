@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react'; // use Content to grab global data
+import { Link, useNavigate } from 'react-router-dom'; // useNavigate for making browser change page
 import { AuthContext } from '../context/AuthContext';
 import { Menu, X } from 'lucide-react';
 
 export const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const navigate = useNavigate(); //helps in redirecting
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
@@ -19,7 +19,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-40">
+    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 px-4 sm:px-6 py-4 flex justify-between items-center sticky top-0 z-40"> {/* z-40 makes it appear above everything*/}
       <div className="flex items-center gap-8">
         <Link to="/" className="text-xl font-black text-indigo-600 tracking-tight">PawsOut</Link>
         <div className="hidden md:flex gap-4 text-sm font-bold text-gray-600">
@@ -28,7 +28,7 @@ export const Navbar = () => {
           {user?.role === 'OWNER' && <Link to="/my-bookings" className="hover:text-indigo-600 transition">My Bookings</Link>}
         </div>
       </div>
-      
+
       {/* Desktop Menu Controls */}
       <div className="hidden md:flex items-center gap-4 text-sm font-bold">
         {!user ? (
@@ -40,18 +40,19 @@ export const Navbar = () => {
           <div className="flex items-center gap-4">
             {user.role === 'OWNER' && <Link to="/my-pets" className="text-gray-600 hover:text-indigo-600 transition">My Pets</Link>}
             {user.role === 'SITTER' && <Link to="/sitter/dashboard" className="text-gray-600 hover:text-indigo-600 transition">Dashboard</Link>}
-            
+
             <div className="h-8 w-8 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-black">
               {user.name.charAt(0)}
             </div>
             <button onClick={handleLogout} className="text-gray-500 hover:text-red-600 transition">Sign Out</button>
           </div>
-        )}
+        )
+        }
       </div>
 
       {/* Mobile Menu Toggle Button */}
       <div className="md:hidden flex items-center">
-        <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-indigo-600 transition focus:outline-none">
+        <button onClick={toggleMobileMenu} className="text-gray-600 hover:text-indigo-600 transition focus:outline-none"> {/*outline-none blue ring that browsers automatically draw*/}
           {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>

@@ -56,15 +56,15 @@ const SitterProfileSchema = new mongoose.Schema(
     yearsOfExperience: {
       type: Number,
       default: 0,
-    },
+    },                  //https://www.mongodb.com/community/forums/t/geonear-aggregation-query-example-causing-strange-error/214974
     location: {
       type: {
         type: String,
         enum: ['Point'],
-        default: 'Point',
+        default: 'Point',// it also supports point and polygon
         required: true,
       },
-      // [longitude, latitude] -> Longitude MUST come first
+      // note longitude must come first
       coordinates: {
         type: [Number],
         required: true,

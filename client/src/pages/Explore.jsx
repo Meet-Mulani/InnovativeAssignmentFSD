@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'; // not rebuild the function evry time the pagerenders
 import axiosClient from '../api/axiosClient';
 import { FilterBar } from '../components/discovery/FilterBar';
 import { SitterCard } from '../components/discovery/SitterCard';
@@ -60,7 +60,7 @@ export const Explore = () => {
       };
 
       if (filters.certifications.length > 0) {
-        params.certifications = filters.certifications.join(',');
+        params.certifications = filters.certifications.join(','); //url array handling problem thats why converted to string
       }
       if (filters.startDate) params.startDate = filters.startDate;
       if (filters.endDate) params.endDate = filters.endDate;

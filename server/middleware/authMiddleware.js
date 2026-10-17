@@ -13,20 +13,20 @@ export const protect = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = await User.findById(decoded.id).select('-password');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);//decoded.id and decoded.exp
+    req.user = await User.findById(decoded.id).select('-password');// - means no password
 
     if (!req.user) {
-      return res.status(401).json({ success: false, message: 'User not found' });
+      return res.status(401).json({ success: false, message: 'User not found' });//edge case user is deleted
     }
 
-    next();
+    next();//actual controller
   } catch (error) {
     return res.status(401).json({ success: false, message: 'Not authorized, token invalid or expired' });
   }
 };
 
-export const authorizeRoles = (...roles) => {
+export const authorizeRoles = (...roles) => { //who can access roles like sitter or owner or both
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({

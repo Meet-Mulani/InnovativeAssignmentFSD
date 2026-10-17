@@ -38,7 +38,7 @@ export const SitterDetails = () => {
         <h2 className="text-xl font-bold text-gray-900">Profile Error</h2>
         <p className="text-sm text-gray-500 mt-2">{error || 'Sitter profile not found.'}</p>
         <Link to="/explore" className="mt-4 inline-block text-xs font-semibold text-indigo-600 hover:underline">
-          ← Back to Discovery
+          Back to Discovery
         </Link>
       </div>
     );
@@ -139,10 +139,10 @@ export const SitterDetails = () => {
                     <span className="text-[10px] text-gray-400 mt-3 block">
                       Issued: {new Date(cert.issueDate).toLocaleDateString()}
                     </span>
-                    <a 
-                      href={cert.documentUrl} 
-                      target="_blank" 
-                      rel="noreferrer" 
+                    <a
+                      href={cert.documentUrl}
+                      target="_blank"
+                      rel="noreferrer"
                       className="mt-3 block text-center w-full py-2 bg-emerald-100 text-emerald-800 text-xs font-bold rounded-lg hover:bg-emerald-200 transition"
                     >
                       View Certificate Link

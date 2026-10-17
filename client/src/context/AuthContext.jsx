@@ -1,11 +1,14 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react'; //counter part of useContext
 import axiosClient from '../api/axiosClient';
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext(null); //it creates the actual memory bucket 
 
-export const AuthProvider = ({ children }) => {
+//https://gist.github.com/diegopitt/c2a93b1e745d9d952cfbc4c16b53bb06
+//https://blog.devgenius.io/how-to-create-and-use-react-context-57e3a9bcaada
+
+export const AuthProvider = ({ children }) => { // here children is the entire application
   const [user, setUser] = useState(null);
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
+  const [token, setToken] = useState(localStorage.getItem('token') || null); //
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -15,7 +18,7 @@ export const AuthProvider = ({ children }) => {
         return;
       }
       try {
-        const res = await axiosClient.get('/auth/me');
+        const res = await axiosClient.get('/auth/me'); // axiosclient intercepts the request and attaches token
         setUser(res.data.user);
       } catch (error) {
         console.error('Session expired or invalid token');
@@ -42,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     const res = await axiosClient.post('/auth/register', userData);
     localStorage.setItem('token', res.data.token);
     setToken(res.data.token);
-    setUser(res.data.user);
+    setUser(res.data.user); // helps navbar update
     return res.data.user;
   };
 
@@ -52,9 +55,9 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 
-  return (
-    <AuthContext.Provider value={{ user, token, loading, login, register, logout }}>
-      {!loading && children}
+  return ( //wrapper component
+    <AuthContext.Provider value={{ user, token, loading, login, register, logout }}> {/*this is what gets dump in memory bucket*/}
+      {!loading && children} {/* prevents UI splash, shows content only when auth is done*/}
     </AuthContext.Provider>
   );
 };

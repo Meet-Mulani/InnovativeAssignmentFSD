@@ -10,20 +10,19 @@ import {
   deleteCertificate,
 } from '../controllers/sitterController.js';
 import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
-import { upload } from '../middleware/uploadMiddleware.js';
 
 const router = express.Router();
 
-// Public Discovery Endpoints
+// Public
 router.get('/', getNearbySitters);
 
-// Sitter Self Management (Protected)
+// Sitter management  
 router.get('/profile/me', protect, authorizeRoles('SITTER'), getMySitterProfile);
 router.put('/profile', protect, authorizeRoles('SITTER'), updateSitterProfile);
 router.get('/availability/me', protect, authorizeRoles('SITTER'), getMyAvailability);
 router.put('/availability', protect, authorizeRoles('SITTER'), updateMyAvailability);
 
-// Certificate Upload & Deletion (Protected)
+//not using certificates feature for now
 router.post(
   '/certificates',
   protect,
@@ -38,6 +37,6 @@ router.delete(
 );
 
 // Public Sitter Detail Dossier
-router.get('/:id', getSitterById);
+router.get('/:id', getSitterById); //: is used for dynamic params
 
 export default router;
